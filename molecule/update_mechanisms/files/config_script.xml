@@ -1,0 +1,21 @@
+<Config>
+  <BindAddress>*</BindAddress>
+  <Port>8787</Port>
+  <UrlBase></UrlBase>
+  <InstanceName>Readarr</InstanceName>
+  <EnableSsl>False</EnableSsl>
+  <SslPort>6868</SslPort>
+  <SslCertPath></SslCertPath>
+  <SslCertPassword></SslCertPassword>
+  <AuthenticationMethod>Forms</AuthenticationMethod>
+  <AuthenticationRequired>DisabledForLocalAddresses</AuthenticationRequired>
+  <ApiKey>abcdef1234567890abcdef1234567890</ApiKey>
+  <LogLevel>info</LogLevel>
+  <AnalyticsEnabled>False</AnalyticsEnabled>
+  <Branch>develop</Branch>
+  <UpdateAutomatically>False</UpdateAutomatically>
+  <UpdateMechanism>Script</UpdateMechanism>
+  <UpdateScriptPath>/var/lib/readarr/update_script</UpdateScriptPath>
+  <LaunchBrowser>False</LaunchBrowser>
+  <Theme>auto</Theme>
+</Config>

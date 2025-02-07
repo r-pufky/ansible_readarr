@@ -1,0 +1,96 @@
+---
+- name: 'Live API test | verify'
+  hosts: 'all'
+  gather_facts: false
+  tasks:
+    - name: 'Live API test | verify | gather service status'
+      ansible.builtin.service_facts:
+
+    - name: 'Live API test | verify | query config.xml'
+      ansible.builtin.copy:
+        src: 'files/config.xml'
+        dest: '/var/lib/readarr/config.xml'
+        owner: 'media'
+        group: 'media'
+        mode: '0600'
+      check_mode: true
+      diff: true
+      register: _test_readarr_config_xml
+
+    - name: 'Live API test | verify | assert config.xml'
+      ansible.builtin.assert:
+        that:
+          - not _test_readarr_config_xml.changed
+        fail_msg: >
+          /var/lib/readarr/config.xml is not in expected format:
+          {{ _test_readarr_config_xml.diff }}.
+
+    # Readarr will fail if configuration is bad (r_pufky.srv.systemd)
+    - name: 'Live API test | verify | assert readarr.service active'
+      ansible.builtin.assert:
+        that:
+          - '"readarr.service" in ansible_facts.services'
+          - 'ansible_facts["services"]["readarr.service"]["state"] == "running"'
+        fail_msg: 'readarr.service should be enabled and running.'
+
+    - name: 'Live API test | verify | query /var/lib/readarr'
+      ansible.builtin.file:
+        path: '/var/lib/readarr'
+        owner: 'media'
+        group: 'media'
+        mode: '0775'
+      check_mode: true
+      diff: true
+      register: _test_readarr_var_lib
+
+    - name: 'Live API test | verify | assert /var/lib/readarr'
+      ansible.builtin.assert:
+        that:
+          - not _test_readarr_var_lib.changed
+        fail_msg: >
+          /var/lib/readarr should exist as 0775 media:media
+          ({{ _test_readarr_var_lib.diff }}).
+
+    - name: 'Live API test | verify | query /var/lib/readarr/update_script'
+      ansible.builtin.file:
+        path: '/var/lib/readarr/update_script'
+        state: 'absent'
+      check_mode: true
+      register: _test_readarr_update
+
+    - name: 'Live API test | verify | assert /var/lib/readarr/update_script'
+      ansible.builtin.assert:
+        that:
+          - not _test_readarr_update.changed
+        fail_msg: '/var/lib/readarr/update_script should not exist.'
+
+    - name: 'Live API test | verify | query /var/lib/readarr/readarr.pfx'
+      ansible.builtin.file:
+        path: '/var/lib/readarr/readarr.pfx'
+        state: 'absent'
+      check_mode: true
+      register: _test_readarr_pfx
+
+    - name: 'Live API test | verify | assert /var/lib/readarr/readarr.pfx'
+      ansible.builtin.assert:
+        that:
+          - not _test_readarr_pfx.changed
+        fail_msg: '/var/lib/readarr/readarr.pfx should not exist.'
+
+    - name: 'Live API test | verify | query /data/media'
+      ansible.builtin.file:
+        path: '/data/media'
+        owner: 'media'
+        group: 'media'
+        mode: '0755'
+      check_mode: true
+      diff: true
+      register: _test_readarr_data_media
+
+    - name: 'Live API test | verify | assert /data/media'
+      ansible.builtin.assert:
+        that:
+          - not _test_readarr_data_media.changed
+        fail_msg: >
+          /data/media should exist as 0755 media:media
+          ({{ _test_readarr_data_media.diff }}).

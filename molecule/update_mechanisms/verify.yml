@@ -1,0 +1,93 @@
+---
+# yamllint disable rule:line-length
+- name: 'Update mechanism | verify'
+  hosts: 'all'
+  gather_facts: false
+  tasks:
+    - name: 'Update mechanism | verify | gather service status'
+      ansible.builtin.service_facts:
+
+    # Readarr will fail if configuration is bad (r_pufky.srv.systemd)
+    - name: 'Update mechanism | verify | assert readarr.service active'
+      ansible.builtin.assert:
+        that:
+          - '"readarr.service" in ansible_facts.services'
+          - 'ansible_facts["services"]["readarr.service"]["state"] == "running"'
+        fail_msg: 'readarr.service should be enabled and running.'
+
+- name: 'Update mechanism | verify | script enabled'
+  hosts: 'readarr-debian-12-update_mechanisms'
+  gather_facts: false
+  tasks:
+    - name: 'Update mechanism | verify | script enabled | query config.xml'
+      ansible.builtin.copy:
+        src: 'files/config_script.xml'
+        dest: '/var/lib/readarr/config.xml'
+        owner: 'media'
+        group: 'media'
+        mode: '0600'
+      check_mode: true
+      diff: true
+      register: _test_readarr_config_xml
+
+    - name: 'Update mechanism | verify | script enabled | assert config.xml'
+      ansible.builtin.assert:
+        that:
+          - not _test_readarr_config_xml.changed
+        fail_msg: >
+          /var/lib/readarr/config.xml is not in expected format:
+          {{ _test_readarr_config_xml.diff }}.
+
+    - name: 'Update mechanism | verify | script enabled | query /var/lib/readarr/update_script'
+      ansible.builtin.file:
+        path: '/var/lib/readarr/update_script'
+        owner: 'media'
+        group: 'media'
+        mode: '0750'
+      check_mode: true
+      diff: true
+      register: _test_readarr_update
+
+    - name: 'Update mechanism | verify | script enabled | assert /var/lib/readarr/update_script'
+      ansible.builtin.assert:
+        that:
+          - not _test_readarr_update.changed
+        fail_msg: >
+          /var/lib/readarr/update_script should exist with 0750 media:media
+          {{ _test_readarr_update.diff }}
+
+- name: 'Update mechanism | verify | script toggled'
+  hosts: 'readarr-debian-12-update_mechanisms-toggle'
+  gather_facts: false
+  tasks:
+    - name: 'Update mechanism | verify | script toggled | query config.xml'
+      ansible.builtin.copy:
+        src: 'files/config_toggle.xml'
+        dest: '/var/lib/readarr/config.xml'
+        owner: 'media'
+        group: 'media'
+        mode: '0600'
+      check_mode: true
+      diff: true
+      register: _test_readarr_config_xml
+
+    - name: 'Update mechanism | verify | script toggled | assert config.xml'
+      ansible.builtin.assert:
+        that:
+          - not _test_readarr_config_xml.changed
+        fail_msg: >
+          /var/lib/readarr/config.xml is not in expected format:
+          {{ _test_readarr_config_xml.diff }}.
+
+    - name: 'Update mechanism | verify | script toggled | query /var/lib/readarr/update_script'
+      ansible.builtin.file:
+        path: '/var/lib/readarr/update_script'
+        state: 'absent'
+      check_mode: true
+      register: _test_readarr_update
+
+    - name: 'Update mechanism | verify | script toggled | assert /var/lib/readarr/update_script'
+      ansible.builtin.assert:
+        that:
+          - not _test_readarr_update.changed
+        fail_msg: '/var/lib/readarr/update_script should not exist.'
