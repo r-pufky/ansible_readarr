@@ -1,0 +1,10 @@
+---
+###############################################################################
+# Readarr Handlers
+###############################################################################
+
+- name: 'Handlers | restart readarr'
+  ansible.builtin.systemd:
+    name: 'readarr'
+    enabled: true
+    state: 'restarted'

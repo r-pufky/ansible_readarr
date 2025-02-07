@@ -1,0 +1,121 @@
+---
+# yamllint disable rule:line-length
+###############################################################################
+# Readarr Role Configuration
+###############################################################################
+
+# Version.
+#
+# Older versions (<5) are not supported.
+#
+# Values:
+#   {VERSION}: tagged release to use ('v5.18.4.9674').
+#    'latest': use latest stable release.
+#
+# Default: 'latest'.
+readarr_service_version: 'latest'
+
+# Remove old installs on upgrade success? Default: True.
+readarr_service_delete_old_versions_enable: true
+
+# Absolute path to database and metadata location. Default: '/var/lib/readarr'.
+readarr_service_data_dir: '/var/lib/readarr'
+
+# Service Umask. Default: '0002'.
+readarr_service_u_mask: '0002'
+
+# Force overwrite existing install?
+#
+# DATA DESTRUCTIVE.
+#
+# Removes existing cached downloaded archives and existing same-version install
+# directories (if any). Any user data in these directories are DESTROYED.
+#
+# Default: False.
+readarr_service_force_overwrite: false
+
+# Automatically restart Readarr daily?
+#
+# Restarting the Readarr service will automatically apply any downloaded auto
+# updates.
+#
+# Default: True.
+readarr_service_restart_daily_enable: true
+
+# Only apply configuration?
+#
+# Reduces role application time by ONLY applying configuration changes. Does
+# NOT affect readarr_media_set_perms_file_enable.
+#
+# This should ONLY be used after the role has been fully run once.
+#
+# Useful when adding a change without reconfiguring the whole system or
+# checking and installing a new version. Suggest applying with extra options:
+#
+#   ansible-playbook site.yml --tags Readarr -e 'readarr_service_force_config_only_enable=true'
+#
+# Default: False.
+readarr_service_force_config_only_enable: false
+
+###############################################################################
+# Readarr User
+###############################################################################
+
+# User that Readarr will run under.
+#
+# Enable readarr_create_user if this account is not externally managed.
+#
+# Default: 'media'.
+readarr_user: 'media'
+
+# Group that Readarr will run under.
+#
+# Enable readarr_create_user if this group is not externally managed.
+#
+# Default: 'media'.
+readarr_group: 'media'
+
+# Create readarr_user, readarr_group if not detected?
+#
+# Applied via r_pufky.srv.users, see vars/main.yml for default user attributes.
+#
+# Default: True.
+readarr_create_user: true
+
+###############################################################################
+# Media Permissions
+###############################################################################
+
+# Root media storage folders.
+#
+# Folders will be created/set with readarr_user, readarr_group,
+# readarr_media_perms_folder.
+#
+# Default: [].
+readarr_media_root_folders: []
+
+# Media folder permissions octal.
+#
+# Media folders specified by readarr_media_root_folders will always be
+# recursively set using readarr_media_perms_folder, readarr_user, and
+# readarr_group.
+#
+# Default: '0755'.
+readarr_media_perms_folder: '0755'
+
+# Enable setting of media file permissions?
+#
+# Set file permissions within readarr_media_root_folders using
+# readarr_media_perms_file, readarr_user, and readarr_group. Large sets of files
+# may be slow to set permissions.
+#
+# Useful when first configuring to ensure service has access to all specified
+# media locations. Suggest applying with extra options:
+#
+#   ansible-playbook site.yml --tags Readarr -e 'readarr_media_set_perms_file_enable=true'
+#
+# Default: False.
+readarr_media_set_perms_file_enable: false
+
+# Media file permissions octal. Default: '0644'.
+readarr_media_perms_file: '0644'

@@ -1,0 +1,67 @@
+---
+# yamllint disable rule:line-length
+###############################################################################
+# Readarr Role Options
+###############################################################################
+# Base version used for current role creation. Readarr will auto update once
+# properly installed; revisiting role tasks is not necessary unless a major
+# version is released. Additional configuration settings may need to be added
+# to defaults for point releases.
+#
+# Readarr uses the generic Servarr installation scripts.
+#
+# Reference:
+# * https://github.com/Servarr/Wiki/blob/master/servarr/servarr-install-script.sh
+# * https://github.com/Readarr/Readarr/releases
+
+# Last time Readarr options were validated against a default configuration.
+readarr_role_validate_date: '2025-02-05'
+readarr_role_validate_release: 'bookworm'
+readarr_role_validate_version: 'v0.4.10.2734'
+readarr_role_validate_script_release: '3.0.12'
+readarr_role_validate_script_date: '2024-04-09'
+
+###############################################################################
+# APT Packages
+###############################################################################
+
+readarr_role_packages:
+  - 'sqlite3'  # Readarr DB.
+  - 'gnupg2'  # GPG for certificates.
+  - 'ca-certificates'  # up to date certificates for certificate validation.
+  - 'libicu72'  # International Unicode support for .NET.
+
+###############################################################################
+# Readarr GitHub Options
+###############################################################################
+# Reference:
+# * https://github.com/Readarr/Readarr/releases/latest
+
+readarr_role_github_owner: 'Readarr'
+readarr_role_github_repo: 'Readarr'
+readarr_role_github_repo_archive_type: 'tar.gz'
+readarr_role_github_extract_dest: '/opt/readarr'
+readarr_role_github_extract_symlink_target: '/opt/readarr/readarr'
+readarr_role_github_binary_specifier: 'v'
+readarr_role_github_binary_url: '{VERSION}/Readarr.develop.{BARE_VERSION}.linux-core-x64.tar.gz'
+
+###############################################################################
+# Default Readarr User/Group
+###############################################################################
+
+readarr_role_group:
+  name: 'media'
+  gid: 5555
+
+readarr_role_user:
+  name: 'media'
+  group: 'media'
+  uid: 5555
+  shell: '/usr/sbin/nologin'
+  home: '/nonexistent'
+  create_home: false
+  password: '!'
+  password_lock: true
+  update_password: 'always'
+  expires: -1
+  system: true
