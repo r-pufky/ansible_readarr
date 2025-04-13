@@ -37,14 +37,13 @@ readarr_role_packages:
 # Reference:
 # * https://github.com/Readarr/Readarr/releases/latest
 
-readarr_role_github_owner: 'Readarr'
-readarr_role_github_repo: 'Readarr'
-readarr_role_github_repo_archive_type: 'tar.gz'
-readarr_role_github_extract_dest: '/opt/readarr'
-readarr_role_github_extract_symlink_target: '/opt/readarr/readarr'
-readarr_role_github_binary_specifier: 'v'
-readarr_role_github_binary_url: '{VERSION}/Readarr.develop.{BARE_VERSION}.linux-core-x64.tar.gz'
-readarr_role_github_extract_migrate_files:
+readarr_role_repo_release_owner: 'Readarr'
+readarr_role_repo_release_repo: 'Readarr'
+readarr_role_repo_extract_dir: '/opt/readarr'
+readarr_role_repo_extract_symlink_target: '/opt/readarr/readarr'
+readarr_role_repo_release_specifier: 'v'
+readarr_role_repo_release_asset: 'Readarr.develop.{BARE_VERSION}.linux-core-x64.tar.gz'
+readarr_role_repo_extract_migrate_files:
   - 'readarr.db'
   - 'readarr.db-shm'  # Readarr never closes DB's correctly.
   - 'readarr.db-wal'

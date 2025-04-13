@@ -42,7 +42,7 @@ permissions will be set to ensure Readarr can read files.
 
 ### Initial Deployment with No User
 New installs REQUIRE 'external' to create a login user; authentication can be
-toggled on after the user exists in the database . Suggest running initial role
+toggled on after the user exists in the database. Suggest running initial role
 application temporarily disabling this option:
 
 ``` bash

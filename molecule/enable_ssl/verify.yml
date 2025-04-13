@@ -10,6 +10,7 @@
     # Readarr will fail if configuration is bad (r_pufky.srv.systemd)
     - name: 'Enable SSL | verify | assert readarr.service active'
       ansible.builtin.assert:
+        quiet: true
         that:
           - '"readarr.service" in ansible_facts.services'
           - 'ansible_facts["services"]["readarr.service"]["state"] == "running"'
@@ -32,6 +33,7 @@
 
     - name: 'Enable SSL | verify | SSL enabled | assert config.xml'
       ansible.builtin.assert:
+        quiet: true
         that:
           - not _test_readarr_config_xml.changed
         fail_msg: >
@@ -50,6 +52,7 @@
 
     - name: 'Enable SSL | verify | SSL enabled | assert /var/lib/readarr/readarr.pfx'
       ansible.builtin.assert:
+        quiet: true
         that:
           - not _test_readarr_pfx.changed
         fail_msg: >
@@ -73,6 +76,7 @@
 
     - name: 'Enable SSL | verify | SSL toggled | assert config.xml'
       ansible.builtin.assert:
+        quiet: true
         that:
           - not _test_readarr_config_xml.changed
         fail_msg: >
@@ -88,6 +92,7 @@
 
     - name: 'Enable SSL | verify | SSL toggled | assert /var/lib/readarr/readarr.pfx'
       ansible.builtin.assert:
+        quiet: true
         that:
           - not _test_readarr_pfx.changed
         fail_msg: '/var/lib/readarr/readarr.pfx should not exist.'
