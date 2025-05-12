@@ -16,6 +16,7 @@
 # * https://wiki.servarr.com/readarr
 # * https://github.com/Readarr/Readarr/releases
 # * https://github.com/Servarr/Wiki/blob/master/servarr/servarr-install-script.sh
+# yamllint enable rule:line-length
 
 - name: 'Prep | assert SSL requirements'
   when: readarr_config_enable_ssl
@@ -72,28 +73,67 @@
       Port: '{{ readarr_config_port | default(8787) }}',
       UrlBase: '{{ readarr_config_url_base | default("") }}',
       InstanceName: '{{ readarr_config_instance_name | default("Readarr") }}',
-      EnableSsl: '{{ readarr_config_enable_ssl | default(false) | bool | string | capitalize }}',
+      EnableSsl: '{{
+          readarr_config_enable_ssl | default(false) |
+          bool | string | capitalize
+        }}',
       SslPort: '{{ readarr_config_ssl_port | default(6868) }}',
-      SslCertPath: '{{ "{{ readarr_service_data_dir }}/readarr.pfx" if readarr_config_enable_ssl | default(false) else "" }}',  # static placement; var determines controller source.
+      SslCertPath: '{{
+          "{{ readarr_service_data_dir }}/readarr.pfx"
+          if readarr_config_enable_ssl | default(false) else
+          ""
+        }}',
       SslCertPassword: '{{ readarr_config_ssl_cert_password | default("") }}',
-      AuthenticationMethod: '{{ readarr_config_authentication_method | default("Forms") | capitalize }}',
-      AuthenticationRequired: '{{ "Enabled" if readarr_config_authentication_required | default(false) else "DisabledForLocalAddresses" }}',
-      ApiKey: '{{ readarr_config_api_key | default(inventory_hostname | md5 | truncate(32, true, "")) }}',
+      AuthenticationMethod: '{{
+          readarr_config_authentication_method | default("Forms") | capitalize
+        }}',
+      AuthenticationRequired: '{{
+          "Enabled"
+          if readarr_config_authentication_required | default(false) else
+          "DisabledForLocalAddresses"
+        }}',
+      ApiKey: '{{
+          readarr_config_api_key |
+          default(inventory_hostname | md5 | truncate(32, true, ""))
+        }}',
       LogLevel: '{{ readarr_config_log_level | default("info") | lower }}',
       # TODO(role): uncomment when readarr syncs to head.
       # LogSizeLimit: '{{ readarr_config_log_size_limit | default(1) }}',
-      AnalyticsEnabled: '{{ readarr_config_analytics_enabled | default(false) | bool | string | capitalize }}',
+      AnalyticsEnabled: '{{
+          readarr_config_analytics_enabled | default(false) |
+          bool | string | capitalize
+        }}',
       Branch: '{{ readarr_config_branch | default("develop") | lower }}',
-      UpdateAutomatically: '{{  readarr_config_update_automatically | default(false) | bool | string | capitalize }}',
-      UpdateMechanism: '{{ "BuiltIn" if readarr_config_update_mechanism | default(true) else "Script" }}',
-      UpdateScriptPath: '{{ "{{ readarr_service_data_dir }}/update_script" if not readarr_config_update_mechanism | default(true) else "" }}',  # static placement; var determines controller source.
-      LaunchBrowser: '{{ readarr_config_launch_browser | default(false) | bool | string | capitalize }}',
+      UpdateAutomatically: '{{
+          readarr_config_update_automatically | default(false) |
+          bool | string | capitalize
+        }}',
+      UpdateMechanism: '{{
+          "BuiltIn"
+          if readarr_config_update_mechanism | default(true) else
+          "Script"
+        }}',
+      UpdateScriptPath: '{{
+          "{{ readarr_service_data_dir }}/update_script"
+          if not readarr_config_update_mechanism | default(true) else
+          ""
+        }}',
+      LaunchBrowser: '{{
+          readarr_config_launch_browser | default(false) |
+          bool | string | capitalize
+        }}',
       # Settings > UI > Style
       Theme: '{{ readarr_config_theme | default("auto") | lower }}',
     }
-    _readarr_migrate_metadata: '{{ readarr_role_repo_extract_migrate_files if not readarr_service_migrate_metadata else readarr_role_repo_extract_migrate_files + ["MediaCover"] }}'
+    _readarr_migrate_metadata: '{{
+        readarr_role_repo_extract_migrate_files
+        if not readarr_service_migrate_metadata else
+        readarr_role_repo_extract_migrate_files + ["MediaCover"]
+      }}'
 
 - name: 'Prep | add config extensions'
   when: readarr_config_extensions | length > 0
   ansible.builtin.set_fact:
-    _readarr_config: '{{ _readarr_config | combine(readarr_config_extensions, recursive=true) }}'
+    _readarr_config: '{{
+        _readarr_config | combine(readarr_config_extensions, recursive=true)
+      }}'

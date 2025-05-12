@@ -13,6 +13,7 @@
 # Reference:
 # * https://github.com/Servarr/Wiki/blob/master/servarr/servarr-install-script.sh
 # * https://github.com/Readarr/Readarr/releases
+# yamllint enable rule:line-length
 
 # Last time Readarr options were validated against a default configuration.
 readarr_role_validate_date: '2025-02-05'
@@ -40,9 +41,10 @@ readarr_role_packages:
 readarr_role_repo_release_owner: 'Readarr'
 readarr_role_repo_release_repo: 'Readarr'
 readarr_role_repo_extract_dir: '/opt/readarr'
-readarr_role_repo_extract_symlink_target: '/opt/readarr/readarr'
+readarr_role_repo_extract_symlink: '/opt/readarr/readarr'
 readarr_role_repo_release_specifier: 'v'
-readarr_role_repo_release_asset: 'Readarr.develop.{BARE_VERSION}.linux-core-x64.tar.gz'
+readarr_role_repo_release_asset:
+  'Readarr.develop.{BARE_VERSION}.linux-core-x64.tar.gz'
 readarr_role_repo_extract_migrate_files:
   - 'readarr.db'
   - 'readarr.db-shm'  # Readarr never closes DB's correctly.

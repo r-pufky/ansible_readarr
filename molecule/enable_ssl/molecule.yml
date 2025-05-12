@@ -1,12 +1,18 @@
 ---
 # yamllint disable rule:line-length
-# Confirm:
+###############################################################################
+# Enable SSL
+###############################################################################
+# SSL is enabled and toggled correctly.
+#
+# Tests:
 # * /var/lib/readarr/readarr.pfx exists.
 # * toggling ssl on, then off removes readarr.pfx.
 #   <EnableSsl>False</EnableSsl>  # true requires ssl_cert
 #   <SslCertPath>/var/lib/readarr/snakeoil.pfx</SslCertPath>
 #   <SslCertPassword>testing</SslCertPassword>  # stored plaintext.
-# readarr_config_enable_ssl -- test when false w and w/o cert
+# * readarr_config_enable_ssl -- test when false w and w/o cert.
+
 dependency:
   name: 'galaxy'
 driver:

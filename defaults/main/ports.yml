@@ -9,7 +9,23 @@
 # * https://github.com/r-pufky/ansible_ufw
 
 readarr_ports:
-  - {proto: 'tcp', from_ip: 'any', to_port: 7878, direction: 'in', comment: 'Readarr http'}
-  - {proto: 'tcp', from_ip: '127.0.0.1', to_port: 7878, direction: 'in', comment: 'Readarr http api'}
-  - {proto: 'tcp', from_ip: 'any', to_port: 9898, direction: 'in', comment: 'Readarr https'}
-  - {proto: 'tcp', from_ip: '127.0.0.1', to_port: 9898, direction: 'in', comment: 'Readarr https api'}
+  - proto: 'tcp'
+    from_ip: 'any'
+    to_port: 8787
+    direction: 'in'
+    comment: 'Readarr HTTP'
+  - proto: 'tcp'
+    from_ip: '127.0.0.1'
+    to_port: 8787
+    direction: 'in'
+    comment: 'Readarr HTTP API'
+  - proto: 'tcp'
+    from_ip: 'any'
+    to_port: 6868
+    direction: 'in'
+    comment: 'Readarr HTTPS'
+  - proto: 'tcp'
+    from_ip: '127.0.0.1'
+    to_port: 6868
+    direction: 'in'
+    comment: 'Readarr HTTPS API'

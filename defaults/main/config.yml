@@ -44,8 +44,8 @@ readarr_config_ssl_port: 6868
 # Path to PFX certificate.
 #
 # Sourced from ansible controller; automatically placed in
-# readarr_service_data_dir/readarr.pfx with correct permissions. Readarr will be
-# automatically configured to use the installed location.
+# readarr_service_data_dir/readarr.pfx with correct permissions. Readarr will
+# be automatically configured to use the installed location.
 #
 # readarr_config_ssl_cert_path: 'host_vars/nzb.example.com/data/my_cert.pfx'
 #
@@ -101,7 +101,8 @@ readarr_config_authentication_required: false
 #   '': random 32 character alphanumeric hash
 #
 # Default: '{RANDOM}' (insecure idempotent API key based on hostname).
-readarr_config_api_key: '{{ inventory_hostname | md5 | truncate(32, true, "") }}'
+readarr_config_api_key:
+  '{{ inventory_hostname | md5 | truncate(32, true, "") }}'
 
 ###############################################################################
 # Settings > General > Logging
