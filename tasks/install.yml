@@ -9,7 +9,7 @@
 
 - name: 'Install | packages'
   ansible.builtin.include_role:
-    name: 'r_pufky.srv.apt'
+    name: 'r_pufky.deb.apt'
   vars:
     apt_packages:
       - '{{ readarr_role_packages }}'
@@ -19,7 +19,7 @@
 - name: 'Install | Readarr package {{ readarr_service_version }}'
   when: not readarr_service_force_config_only_enable
   ansible.builtin.include_role:
-    name: 'r_pufky.srv.repo'
+    name: 'r_pufky.deb.repo'
   vars:
     repo_release_owner: '{{ readarr_role_repo_release_owner }}'
     repo_release_repo: '{{ readarr_role_repo_release_repo }}'

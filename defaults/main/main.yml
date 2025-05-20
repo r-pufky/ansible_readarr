@@ -9,7 +9,7 @@
 # Version.
 #
 # Older versions (<5) are not supported. Set repo_host_access_token if github
-# API is rate limited. See r_pufky.srv.repo.
+# API is rate limited. See r_pufky.deb.repo.
 #
 # Values:
 #   {VERSION}: Tagged release to use ('v5.18.4.9674').
@@ -96,7 +96,7 @@ readarr_group: 'media'
 
 # Create readarr_user, readarr_group if not detected?
 #
-# Applied via r_pufky.srv.users, see vars/main.yml for default user attributes.
+# Applied via r_pufky.deb.users, see vars/main.yml for default user attributes.
 #
 # Default: True.
 readarr_create_user: true
@@ -125,8 +125,8 @@ readarr_media_perms_folder: '0755'
 # Enable setting of media file permissions?
 #
 # Set file permissions within readarr_media_root_folders using
-# readarr_media_perms_file, readarr_user, and readarr_group. Large sets of files
-# may be slow to set permissions.
+# readarr_media_perms_file, readarr_user, and readarr_group. Large sets of
+# files may be slow to set permissions.
 #
 # Useful when first configuring to ensure service has access to all specified
 # media locations. Suggest applying with extra options:

@@ -1,5 +1,6 @@
 ---
 galaxy_info:
+  role_name: 'readarr'
   author: 'r_pufky'
   description: 'Readarr Server'
   company: 'N/A'
