@@ -2,16 +2,17 @@
 ###############################################################################
 # Default
 ###############################################################################
-# Default configuration is deployed successfully.
+# Default configuration is deployed successfully. Configuration should succeed
+# with and without readarr_srv_user_data_manage_enable.
 #
 # Tests:
 # * config.xml set.
 # * readarr.service active and running.
-# * /var/lib/readarr created with correct permissions.
+# * /data/readarr/config created with correct permissions.
 # * /data/media created with correct permissions.
 # * /data/media - file permissions recursively set with correct permissions.
-# * /var/lib/readarr/update_script does not exist.
-# * /var/lib/readarr/readarr.pfx does not exist.
+# * /data/readarr/config/update_script does not exist.
+# * /data/readarr/config/readarr.pfx does not exist.
 
 dependency:
   name: 'galaxy'
@@ -28,17 +29,20 @@ provisioner:
   inventory:
     group_vars:
       all:
-        readarr_media_root_folders: ['/data/media']
-        readarr_config_api_key: 'abcdef1234567890abcdef1234567890'
+        readarr_srv_media_root_folders: ['/data/media']
+        readarr_cfg_api_key: 'abcdef1234567890abcdef1234567890'
         repo_testing_enable: true
         repo_testing_versions:
           - comment: 'default'
-            version: 'v0.4.10.2734'
+            version: 'v0.4.18.2805'
             asset: '{{
                 lookup("env", "MOLECULE_PROJECT_DIRECTORY") ~
                 "/molecule/cache/" ~
-                "Readarr.develop.0.4.10.2734.linux-core-x64.tar.gz"
+                "Readarr.develop.0.4.18.2805.linux-core-x64.tar.gz"
               }}'
+    host_vars:
+      readarr-debian-12-user_data:
+        readarr_srv_user_data_manage_enable: true
 platforms:
   - name: 'readarr-debian-12-default'
     image: 'ghcr.io/hifis-net/debian-systemd:12'
@@ -49,6 +53,13 @@ platforms:
     pre_build_image: true
     published_ports:
       - '8787/tcp'
+  - name: 'readarr-debian-12-user_data'
+    image: 'ghcr.io/hifis-net/debian-systemd:12'
+    systemd: 'always'
+    volumes:
+      - '/sys/fs/cgroup:/sys/fs/cgroup:ro'
+    command: '/lib/systemd/systemd'
+    pre_build_image: true
 verifier:
   name: 'ansible'
 lint: |

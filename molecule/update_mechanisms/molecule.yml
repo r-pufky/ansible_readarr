@@ -5,7 +5,7 @@
 # Verify update scripts are deployed and executed correctly.
 #
 # Tests:
-# * /var/lib/readarr/update_script exists.
+# * /data/readarr/config/update_script exists.
 # * toggling script update on, then off removes update_script.
 
 dependency:
@@ -23,25 +23,25 @@ provisioner:
   inventory:
     group_vars:
       all:
-        readarr_config_update_mechanism: false
-        readarr_config_update_script_path: 'files/update.sh'
-        readarr_media_root_folders: ['/data/media']
-        readarr_config_api_key: 'abcdef1234567890abcdef1234567890'
+        readarr_cfg_update_mechanism: false
+        readarr_cfg_update_script_path: 'files/update.sh'
+        readarr_srv_media_root_folders: ['/data/media']
+        readarr_cfg_api_key: 'abcdef1234567890abcdef1234567890'
         repo_testing_enable: true
         repo_testing_versions:
           - comment: 'default'
-            version: 'v0.4.10.2734'
+            version: 'v0.4.18.2805'
             asset: '{{
                 lookup("env", "MOLECULE_PROJECT_DIRECTORY") ~
                 "/molecule/cache/" ~
-                "Readarr.develop.0.4.10.2734.linux-core-x64.tar.gz"
+                "Readarr.develop.0.4.18.2805.linux-core-x64.tar.gz"
               }}'
           - comment: 'toggle'
-            version: 'v0.4.10.2734'
+            version: 'v0.4.18.2805'
             asset: '{{
                 lookup("env", "MOLECULE_PROJECT_DIRECTORY") ~
                 "/molecule/cache/" ~
-                "Readarr.develop.0.4.10.2734.linux-core-x64.tar.gz"
+                "Readarr.develop.0.4.18.2805.linux-core-x64.tar.gz"
               }}'
 platforms:
   - name: 'readarr-debian-12-update_mechanisms'

@@ -1,26 +1,26 @@
 ---
-- name: 'Update mechanisms | prepare'
+- name: 'Prepare'
   hosts: 127.0.0.1
   connection: local
   gather_facts: false
   tasks:
-    - name: 'Update mechanisms | prepare | create cache'
+    - name: 'Prepare | create cache'
       ansible.builtin.include_role:
         name: 'r_pufky.lib.tests'
         tasks_from: 'create_cache.yml'
       vars:
-        test_name: 'Update mechanisms | prepare | create cache'
+        test_name: 'Prepare | create cache'
 
-    - name: 'Update mechanisms | prepare | check 0.4.10.2734'
+    - name: 'Prepare | check 0.4.18.2805'
       ansible.builtin.include_role:
         name: 'r_pufky.lib.tests'
         tasks_from: 'cache_url.yml'
       vars:
-        test_name: 'Update mechanisms | prepare | cache 0.4.10.2734'
-        test_dest: 'Readarr.develop.0.4.10.2734.linux-core-x64.tar.gz'
+        test_name: 'Prepare | cache 0.4.18.2805'
+        test_dest: 'Readarr.develop.0.4.18.2805.linux-core-x64.tar.gz'
         test_url: '{{
             "https://github.com/Readarr/Readarr/releases/download/" ~
-            "v0.4.10.2734/" ~
-            "Readarr.develop.0.4.10.2734.linux-core-x64.tar.gz"
+            "v0.4.18.2805/" ~
+            "Readarr.develop.0.4.18.2805.linux-core-x64.tar.gz"
           }}'
         test_mode: '0640'

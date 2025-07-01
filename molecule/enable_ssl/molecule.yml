@@ -5,12 +5,12 @@
 # SSL is enabled and toggled correctly.
 #
 # Tests:
-# * /var/lib/readarr/readarr.pfx exists.
+# * /data/readarr/config/readarr.pfx exists.
 # * toggling ssl on, then off removes readarr.pfx.
 #   <EnableSsl>False</EnableSsl>  # true requires ssl_cert
-#   <SslCertPath>/var/lib/readarr/snakeoil.pfx</SslCertPath>
+#   <SslCertPath>/data/readarr/config/snakeoil.pfx</SslCertPath>
 #   <SslCertPassword>testing</SslCertPassword>  # stored plaintext.
-# * readarr_config_enable_ssl -- test when false w and w/o cert.
+# * readarr_cfg_enable_ssl -- test when false w and w/o cert.
 
 dependency:
   name: 'galaxy'
@@ -27,29 +27,29 @@ provisioner:
   inventory:
     group_vars:
       all:
-        readarr_config_enable_ssl: true
-        readarr_config_ssl_cert_path: '{{
+        readarr_cfg_enable_ssl: true
+        readarr_cfg_ssl_cert_path: '{{
             lookup("env", "MOLECULE_PROJECT_DIRECTORY") ~
             "/molecule/cache/test.pfx"
           }}'
-        readarr_config_ssl_cert_password: 'test'
-        readarr_media_root_folders: ['/data/media']
-        readarr_config_api_key: 'abcdef1234567890abcdef1234567890'
+        readarr_cfg_ssl_cert_password: 'test'
+        readarr_srv_media_root_folders: ['/data/media']
+        readarr_cfg_api_key: 'abcdef1234567890abcdef1234567890'
         repo_testing_enable: true
         repo_testing_versions:
           - comment: 'default'
-            version: 'v0.4.10.2734'
+            version: 'v0.4.18.2805'
             asset: '{{
                 lookup("env", "MOLECULE_PROJECT_DIRECTORY") ~
                 "/molecule/cache/" ~
-                "Readarr.develop.0.4.10.2734.linux-core-x64.tar.gz"
+                "Readarr.develop.0.4.18.2805.linux-core-x64.tar.gz"
               }}'
           - comment: 'toggle'
-            version: 'v0.4.10.2734'
+            version: 'v0.4.18.2805'
             asset: '{{
                 lookup("env", "MOLECULE_PROJECT_DIRECTORY") ~
                 "/molecule/cache/" ~
-                "Readarr.develop.0.4.10.2734.linux-core-x64.tar.gz"
+                "Readarr.develop.0.4.18.2805.linux-core-x64.tar.gz"
               }}'
 platforms:
   - name: 'readarr-debian-12-enable_ssl'

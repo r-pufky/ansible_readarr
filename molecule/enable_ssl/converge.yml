@@ -1,18 +1,18 @@
 ---
-- name: 'Enable SSL | converge'
+- name: 'Converge'
   hosts: 'all'
   gather_facts: false
   tasks:
-    - name: 'Enable SSL | converge | apply r_pufky.srv.readarr'
+    - name: 'Converge | apply r_pufky.srv.readarr'
       ansible.builtin.include_role:
         name: 'r_pufky.srv.readarr'
 
-- name: 'Enable SSL | converge | toggle SSL'
+- name: 'Converge | toggle SSL'
   hosts: 'readarr-debian-12-enable_ssl-toggle'
   gather_facts: false
   tasks:
-    - name: 'Enable SSL | converge | toggle SSL | apply r_pufky.srv.readarr'
+    - name: 'Converge | toggle SSL | apply r_pufky.srv.readarr'
       ansible.builtin.include_role:
         name: 'r_pufky.srv.readarr'
       vars:
-        readarr_config_enable_ssl: false
+        readarr_cfg_enable_ssl: false

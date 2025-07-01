@@ -36,8 +36,8 @@ provisioner:
   inventory:
     group_vars:
       all:
-        readarr_media_root_folders: ['/data/media']
-        readarr_config_api_key: 'abcdef1234567890abcdef1234567890'
+        readarr_srv_media_root_folders: ['/data/media']
+        readarr_cfg_api_key: 'abcdef1234567890abcdef1234567890'
         readarr_live_api_enable: false
 platforms:
   - name: 'readarr-debian-12-live_api_test'

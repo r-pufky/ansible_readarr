@@ -29,10 +29,10 @@ permissions will be set to ensure Readarr can read files.
   roles:
      - 'r_pufky.readarr'
   vars:
-    readarr_service_version: 'latest'
-    readarr_config_api_key: '{{ vault_readarr_api_key }}'
-    readarr_config_update_automatically: true
-    readarr_config_theme: 'dark'
+    readarr_srv_version: 'latest'
+    readarr_cfg_api_key: '{{ vault_readarr_api_key }}'
+    readarr_cfg_update_automatically: true
+    readarr_cfg_theme: 'dark'
     readarr_media_root_folders:
       - '/data/media'
     readarr_media_set_perms_file_enable: true
@@ -44,7 +44,7 @@ toggled on after the user exists in the database. Suggest running initial role
 application temporarily disabling this option:
 
 ``` bash
-ansible-playbook readarr.yml -e 'readarr_config_authentication_method=external'
+ansible-playbook readarr.yml -e 'readarr_cfg_authentication_method=external'
 ```
 
 ## Development

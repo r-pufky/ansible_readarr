@@ -1,31 +1,41 @@
 ---
-# yamllint disable rule:line-length
 ###############################################################################
 # Readarr Service Configuration
 ###############################################################################
 # Existing databases are migrated automatically when new versions are
-# installed.
-
-# Version.
+# installed. Migration between database platforms is not supported and must be
+# done manually.
 #
-# Older versions (<5) are not supported. Set repo_host_access_token if github
-# API is rate limited. See r_pufky.deb.repo.
+# Set repo_host_access_token if API is rate limited. See r_pufky.deb.repo.
+
+# Readarr Release.
+#
+# Versions (Schematic):
+#       MAJOR: Unsafe - requires major role changes; only default MAJOR version
+#              is supported. See other branches if they exist.
+#       MINOR: Safe - Usually requires no role updates. Changes usually
+#              constrained to internal changes requiring no config file or
+#              dependency changes.
+#       PATCH: Safe - Usually requires no role updates.
+#   RECOMMEND: Only increment PATCH. Never use 'latest'.
 #
 # Values:
-#   {VERSION}: Tagged release to use ('v5.18.4.9674').
+#   {VERSION}: Tagged release to use ('v0.4.18.2805').
 #      latest: Use latest stable release.
 #
-# Default: 'latest'.
-readarr_service_version: 'latest'
+# Default: 'v0.4.18.2805'.
+readarr_srv_version: 'v0.4.18.2805'
 
 # Remove old installs on upgrade success? Default: True.
-readarr_service_delete_old_versions_enable: true
+readarr_srv_delete_old_versions_enable: true
 
-# Absolute path to database and metadata location. Default: '/var/lib/readarr'.
-readarr_service_data_dir: '/var/lib/readarr'
+# Absolute path to database and metadata location.
+#
+# Default: '/data/readarr/config'.
+readarr_srv_config_dir: '/data/readarr/config'
 
 # Service Umask. Default: '0002'.
-readarr_service_u_mask: '0002'
+readarr_srv_u_mask: '0002'
 
 # Force overwrite existing install?
 #
@@ -35,7 +45,7 @@ readarr_service_u_mask: '0002'
 # directories (if any). Any user data in these directories are DESTROYED.
 #
 # Default: False.
-readarr_service_force_overwrite: false
+readarr_srv_force_overwrite: false
 
 # Migrate metadata (MediaCover) directory?
 #
@@ -43,7 +53,7 @@ readarr_service_force_overwrite: false
 # version if not migrated with databases.
 #
 # Default: True.
-readarr_service_migrate_metadata: true
+readarr_srv_migrate_metadata: true
 
 # Recursively set metadata permissions?
 #
@@ -51,7 +61,7 @@ readarr_service_migrate_metadata: true
 # excessively slow.
 #
 # Default: False.
-readarr_service_permissions_recursive_enable: false
+readarr_srv_permissions_recursive_enable: false
 
 # Automatically restart Readarr daily?
 #
@@ -59,7 +69,7 @@ readarr_service_permissions_recursive_enable: false
 # updates.
 #
 # Default: True.
-readarr_service_restart_daily_enable: true
+readarr_srv_restart_daily_enable: true
 
 # Only apply configuration?
 #
@@ -71,10 +81,12 @@ readarr_service_restart_daily_enable: true
 # Useful when adding a change without reconfiguring the whole system or
 # checking and installing a new version. Suggest applying with extra options:
 #
-#   ansible-playbook site.yml --tags Readarr -e 'readarr_service_force_config_only_enable=true'
+#   ansible-playbook site.yml
+#       --tags Readarr
+#       -e 'readarr_srv_force_config_only_enable=true'
 #
 # Default: False.
-readarr_service_force_config_only_enable: false
+readarr_srv_force_config_only_enable: false
 
 ###############################################################################
 # Readarr User
@@ -85,16 +97,16 @@ readarr_service_force_config_only_enable: false
 # Enable readarr_create_user if this account is not externally managed.
 #
 # Default: 'media'.
-readarr_user: 'media'
+readarr_srv_user: 'media'
 
 # Group that Readarr will run under.
 #
 # Enable readarr_create_user if this group is not externally managed.
 #
 # Default: 'media'.
-readarr_group: 'media'
+readarr_srv_group: 'media'
 
-# Create readarr_user, readarr_group if not detected?
+# Create readarr_srv_user, readarr_srv_group if not detected?
 #
 # Applied via r_pufky.deb.users, see vars/main.yml for default user attributes.
 #
@@ -107,17 +119,31 @@ readarr_create_user: true
 
 # Root media storage folders.
 #
-# Folders will be created/set with readarr_user, readarr_group,
+# Folders will be created/set with readarr_srv_user, readarr_srv_group,
 # readarr_media_perms_folder.
 #
 # Default: [].
 readarr_media_root_folders: []
 
+# Enable user management of data/media files?
+#
+# Use readarr_srv_user to execute data/media management commands. Role
+# applies media permissions using 'root' by default. For mounted data locations
+# (NFS with squashed mounts, mapped container mounts, etc) the local root user
+# will not have sufficient privileges to modify these files.
+#
+# Applies to:
+# * readarr_srv_config_dir
+# * readarr_srv_media_root_folders
+#
+# Default: False.
+readarr_srv_user_data_manage_enable: false
+
 # Media folder permissions octal.
 #
 # Media folders specified by readarr_media_root_folders will always be
-# recursively set using readarr_media_perms_folder, readarr_user, and
-# readarr_group.
+# recursively set using readarr_media_perms_folder, readarr_srv_user, and
+# readarr_srv_group.
 #
 # Default: '0755'.
 readarr_media_perms_folder: '0755'
@@ -125,13 +151,15 @@ readarr_media_perms_folder: '0755'
 # Enable setting of media file permissions?
 #
 # Set file permissions within readarr_media_root_folders using
-# readarr_media_perms_file, readarr_user, and readarr_group. Large sets of
-# files may be slow to set permissions.
+# readarr_media_perms_file, readarr_srv_user, and readarr_srv_group. Large sets
+# of files may be slow to set permissions.
 #
 # Useful when first configuring to ensure service has access to all specified
 # media locations. Suggest applying with extra options:
 #
-#   ansible-playbook site.yml --tags Readarr -e 'readarr_media_set_perms_file_enable=true'
+#   ansible-playbook site.yml
+#       --tags Readarr
+#       -e 'readarr_media_set_perms_file_enable=true'
 #
 # Default: False.
 readarr_media_set_perms_file_enable: false

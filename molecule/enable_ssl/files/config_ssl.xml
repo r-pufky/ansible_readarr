@@ -5,7 +5,7 @@
   <InstanceName>Readarr</InstanceName>
   <EnableSsl>True</EnableSsl>
   <SslPort>6868</SslPort>
-  <SslCertPath>/var/lib/readarr/readarr.pfx</SslCertPath>
+  <SslCertPath>/data/readarr/config/readarr.pfx</SslCertPath>
   <SslCertPassword>test</SslCertPassword>
   <AuthenticationMethod>Forms</AuthenticationMethod>
   <AuthenticationRequired>DisabledForLocalAddresses</AuthenticationRequired>
