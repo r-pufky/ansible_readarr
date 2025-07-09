@@ -94,14 +94,14 @@ readarr_srv_force_config_only_enable: false
 
 # User that Readarr will run under.
 #
-# Enable readarr_create_user if this account is not externally managed.
+# Enable readarr_srv_create_user if this account is not externally managed.
 #
 # Default: 'media'.
 readarr_srv_user: 'media'
 
 # Group that Readarr will run under.
 #
-# Enable readarr_create_user if this group is not externally managed.
+# Enable readarr_srv_create_user if this group is not externally managed.
 #
 # Default: 'media'.
 readarr_srv_group: 'media'
@@ -111,7 +111,7 @@ readarr_srv_group: 'media'
 # Applied via r_pufky.deb.users, see vars/main.yml for default user attributes.
 #
 # Default: True.
-readarr_create_user: true
+readarr_srv_create_user: true
 
 ###############################################################################
 # Media Permissions

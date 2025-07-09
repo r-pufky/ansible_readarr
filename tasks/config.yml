@@ -10,44 +10,6 @@
 # Reference:
 # * https://github.com/Servarr/Wiki/blob/master/servarr/servarr-install-script.sh
 
-- name: 'Config | Readarr service'
-  ansible.builtin.include_role:
-    name: 'r_pufky.deb.systemd'
-  vars:
-    systemd_daemon_reload_enable: true
-    systemd_services:
-      - name: 'readarr'
-        state: 'present'
-        drop_in: false
-        unit:
-          description: 'Readarr Daemon'
-          after:
-            - 'syslog.target'
-            - 'network.target'
-        service:
-          type: 'simple'
-          exec_start:
-            - >-
-              {{ readarr_role_repo_extract_symlink }}/Readarr
-              -nobrowser
-              -data={{ readarr_srv_config_dir }}
-          timeout_stop_sec: 20
-          restart: 'always'  # always restart for periodic service restarts
-          runtime_max_sec: '{{
-              "1d"
-              if readarr_srv_restart_daily_enable else
-              "infinity"
-            }}'
-        exec:
-          user: '{{ readarr_srv_user }}'
-          group: '{{ readarr_srv_group }}'
-          u_mask: '{{ readarr_srv_u_mask }}'
-        kill:
-          kill_mode: 'process'
-        install:
-          wanted_by:
-            - 'multi-user.target'
-
 - name: 'Config | set {{ _readarr_srv_config_dir.raw }}'
   ansible.builtin.file:
     path: '{{ _readarr_srv_config_dir.raw }}'
