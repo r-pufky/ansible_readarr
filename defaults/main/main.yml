@@ -78,7 +78,7 @@ readarr_srv_restart_daily_enable: true
 # Only apply configuration?
 #
 # Reduces role application time by ONLY applying configuration changes. Does
-# NOT affect readarr_media_set_perms_file_enable.
+# NOT affect readarr_srv_media_set_perms_file_enable.
 #
 # This should ONLY be used after the role has been fully run once.
 #
@@ -124,10 +124,10 @@ readarr_srv_create_user: true
 # Root media storage folders.
 #
 # Folders will be created/set with readarr_srv_user, readarr_srv_group,
-# readarr_media_perms_folder.
+# readarr_srv_media_perms_folder.
 #
 # Default: [].
-readarr_media_root_folders: []
+readarr_srv_media_root_folders: []
 
 # Enable user management of data/media files?
 #
@@ -145,28 +145,28 @@ readarr_srv_user_data_manage_enable: false
 
 # Media folder permissions octal.
 #
-# Media folders specified by readarr_media_root_folders will always be
-# recursively set using readarr_media_perms_folder, readarr_srv_user, and
+# Media folders specified by readarr_srv_media_root_folders will always be
+# recursively set using readarr_srv_media_perms_folder, readarr_srv_user, and
 # readarr_srv_group.
 #
 # Default: '0755'.
-readarr_media_perms_folder: '0755'
+readarr_srv_media_perms_folder: '0755'
 
 # Enable setting of media file permissions?
 #
-# Set file permissions within readarr_media_root_folders using
-# readarr_media_perms_file, readarr_srv_user, and readarr_srv_group. Large sets
-# of files may be slow to set permissions.
+# Set file permissions within readarr_srv_media_root_folders using
+# readarr_srv_media_perms_file, readarr_srv_user, and readarr_srv_group. Large
+# sets of files may be slow to set permissions.
 #
 # Useful when first configuring to ensure service has access to all specified
 # media locations. Suggest applying with extra options:
 #
 #   ansible-playbook site.yml
 #       --tags Readarr
-#       -e 'readarr_media_set_perms_file_enable=true'
+#       -e 'readarr_srv_media_set_perms_file_enable=true'
 #
 # Default: False.
-readarr_media_set_perms_file_enable: false
+readarr_srv_media_set_perms_file_enable: false
 
 # Media file permissions octal. Default: '0644'.
-readarr_media_perms_file: '0644'
+readarr_srv_media_perms_file: '0644'

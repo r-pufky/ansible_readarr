@@ -33,9 +33,9 @@ permissions will be set to ensure Readarr can read files.
     readarr_cfg_api_key: '{{ vault_readarr_api_key }}'
     readarr_cfg_update_automatically: true
     readarr_cfg_theme: 'dark'
-    readarr_media_root_folders:
+    readarr_srv_media_root_folders:
       - '/data/media'
-    readarr_media_set_perms_file_enable: true
+    readarr_srv_media_set_perms_file_enable: true
 ```
 
 ### Initial Deployment with No User
