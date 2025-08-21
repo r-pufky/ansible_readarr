@@ -47,6 +47,13 @@ application temporarily disabling this option:
 ansible-playbook readarr.yml -e 'readarr_cfg_authentication_method=external'
 ```
 
+### Postgres Support
+Postgres is supported in the role, however, sqlite3 to postgres migrations must
+be done manually. See defaults and Readarr documentation.
+
+[defaults/database.yml](https://github.com/r-pufky/ansible_readarr/blob/main/defaults/main/database.yml)
+[Readarr Postgres](https://wiki.servarr.com/readarr/postgres-setup)
+
 ## Development
 Configure [environment](https://github.com/r-pufky/ansible_collection_srv/blob/main/docs/dev/environment/README.md)
 

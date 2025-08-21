@@ -1,0 +1,28 @@
+<Config>
+  <BindAddress>*</BindAddress>
+  <Port>8787</Port>
+  <UrlBase></UrlBase>
+  <InstanceName>Readarr</InstanceName>
+  <EnableSsl>False</EnableSsl>
+  <SslPort>6868</SslPort>
+  <SslCertPath></SslCertPath>
+  <SslCertPassword></SslCertPassword>
+  <AuthenticationMethod>Forms</AuthenticationMethod>
+  <AuthenticationRequired>DisabledForLocalAddresses</AuthenticationRequired>
+  <ApiKey>abcdef1234567890abcdef1234567890</ApiKey>
+  <LogLevel>info</LogLevel>
+  <AnalyticsEnabled>False</AnalyticsEnabled>
+  <Branch>develop</Branch>
+  <UpdateAutomatically>False</UpdateAutomatically>
+  <UpdateMechanism>BuiltIn</UpdateMechanism>
+  <UpdateScriptPath></UpdateScriptPath>
+  <LaunchBrowser>False</LaunchBrowser>
+  <PostgresHost>localhost</PostgresHost>
+  <PostgresPort>5432</PostgresPort>
+  <PostgresUser>readarr</PostgresUser>
+  <PostgresPassword>test</PostgresPassword>
+  <PostgresMainDb>readarr-main</PostgresMainDb>
+  <PostgresLogDb>readarr-log</PostgresLogDb>
+  <PostgresCacheDb>readarr-cache</PostgresCacheDb>
+  <Theme>auto</Theme>
+</Config>

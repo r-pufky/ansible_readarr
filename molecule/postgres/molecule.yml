@@ -1,0 +1,86 @@
+---
+###############################################################################
+# Default
+###############################################################################
+# Default configuration is deployed successfully using postgres. Configuration
+# should succeed with and without readarr_srv_user_data_manage_enable.
+#
+# Tests:
+# * config.xml set.
+# * readarr.service active and running.
+# * /data/readarr/config created with correct permissions.
+# * /data/media created with correct permissions.
+# * /data/media - file permissions recursively set with correct permissions.
+# * /data/readarr/config/update_script does not exist.
+# * /data/readarr/config/readarr.pfx does not exist.
+# * Postgres backed instance launches correctly.
+
+dependency:
+  name: 'galaxy'
+driver:
+  name: 'podman'
+provisioner:
+  name: 'ansible'
+  config_options:
+    defaults:
+      interpreter_python: 'auto_silent'
+      callback_whitelist: 'profile_tasks, timer, yaml'
+    ssh_connection:
+      pipelining: false
+  inventory:
+    group_vars:
+      all:
+        readarr_srv_media_root_folders: ['/data/media']
+        readarr_cfg_api_key: 'abcdef1234567890abcdef1234567890'
+        repo_testing_enable: true
+        repo_testing_versions:
+          - comment: 'default'
+            version: 'v0.4.18.2805'
+            asset: '{{
+                lookup("env", "MOLECULE_PROJECT_DIRECTORY") ~
+                "/molecule/cache/" ~
+                "Readarr.develop.0.4.18.2805.linux-core-x64.tar.gz"
+              }}'
+        readarr_cfg_database_type: 'postgres'
+        readarr_cfg_database_host: 'localhost'
+        readarr_cfg_database_password: 'test'
+    host_vars:
+      readarr-debian-12-postgres_user_data:
+        readarr_srv_user_data_manage_enable: true
+platforms:
+  - name: 'readarr-debian-12-postgres'
+    image: 'ghcr.io/hifis-net/debian-systemd:12'
+    systemd: 'always'
+    volumes:
+      - '/sys/fs/cgroup:/sys/fs/cgroup:ro'
+    command: '/lib/systemd/systemd'
+    pre_build_image: true
+    published_ports:
+      - '8787/tcp'
+  - name: 'readarr-debian-12-postgres_user_data'
+    image: 'ghcr.io/hifis-net/debian-systemd:12'
+    systemd: 'always'
+    volumes:
+      - '/sys/fs/cgroup:/sys/fs/cgroup:ro'
+    command: '/lib/systemd/systemd'
+    pre_build_image: true
+verifier:
+  name: 'ansible'
+lint: |
+  set -e
+  yamllint .
+  ansible-lint .
+scenario:
+  test_sequence:
+    # - 'dependency'
+    # - 'cleanup'
+    - 'destroy'
+    - 'syntax'
+    - 'create'
+    - 'prepare'
+    - 'converge'
+    # - 'idempotence'  # Files created, extracted, created, deleted.
+    # - 'side_effect'
+    - 'verify'
+    # - 'cleanup'
+    - 'destroy'

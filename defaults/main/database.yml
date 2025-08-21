@@ -1,0 +1,66 @@
+---
+###############################################################################
+# Readarr Database Options
+###############################################################################
+# Existing databases are migrated automatically when new versions are
+# installed. Migration between database platforms is not supported and must be
+# done manually.
+
+# Database backend.
+#
+# Values:
+#   postgres: Postgres 14+. HIGHLY recommended.
+#     sqlite: Sqlite3 (default).
+#
+# Default: 'sqlite'.
+readarr_cfg_database_type: 'sqlite'
+
+###############################################################################
+# PostgreSQL Database Options
+###############################################################################
+# Postgres requires pre-existing databases with root privileges to initialize
+# tables and manage migrations. Postgres databases are NOT backed up by Readarr.
+#
+# Manual Migration Overview:
+# * Create postgres databases.
+# * systemctl stop readarr
+# * sqlite3 readarr.db vacuum
+# * Update config.xml with DB settings (or re-apply role with postgres).
+# * systemctl start readarr
+# * Confirm readarr running (appears empty).
+# * systemctl stop readarr
+# * cp readarr.db postgres:/tmp
+# * chmod o+r /tmp/readarr.db
+# * Install pgloader to /usr/local/bin
+# * Login to postgres: psql -d readarr
+# * Remove auto-generated tables (see reference).
+# * Execute pgloader. Use 'prefetch rows' and 'batch size' options.
+#   * Many WARNINGS may appear; these can be ignored.
+# * systemctl start readarr
+# * No migrations have needed post migration steps in practice.
+# * Backup and remove sqlite3 database files.
+#
+# Reference:
+# * https://wiki.servarr.com/readarr/postgres-setup
+# * https://github.com/Roxedus/Pgloader-bin
+
+# Database host. Default: 'localhost'.
+readarr_cfg_database_host: 'localhost'
+
+# Database port. Default: 5432.
+readarr_cfg_database_port: 5432
+
+# Database user. Default: 'readarr'.
+readarr_cfg_database_user: 'readarr'
+
+# Database password. Default: ''.
+readarr_cfg_database_password: ''
+
+# Main database name. Default: 'readarr-main'.
+readarr_cfg_database_main: 'readarr-main'
+
+# Log database name. Default: 'readarr-log'.
+readarr_cfg_database_log: 'readarr-log'
+
+# Cache database name. Default: 'readarr-cache'.
+readarr_cfg_database_cache: 'readarr-cache'
