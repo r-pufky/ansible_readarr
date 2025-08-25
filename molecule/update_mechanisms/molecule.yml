@@ -44,15 +44,15 @@ provisioner:
                 "Readarr.develop.0.4.18.2805.linux-core-x64.tar.gz"
               }}'
 platforms:
-  - name: 'readarr-debian-12-update_mechanisms'
-    image: 'ghcr.io/hifis-net/debian-systemd:12'
+  - name: 'readarr-debian-13-update_mechanisms'
+    image: 'ghcr.io/hifis-net/debian-systemd:13'
     systemd: 'always'
     volumes:
       - '/sys/fs/cgroup:/sys/fs/cgroup:ro'
     command: '/lib/systemd/systemd'
     pre_build_image: true
-  - name: 'readarr-debian-12-update_mechanisms-toggle'
-    image: 'ghcr.io/hifis-net/debian-systemd:12'
+  - name: 'readarr-debian-13-update_mechanisms-toggle'
+    image: 'ghcr.io/hifis-net/debian-systemd:13'
     systemd: 'always'
     volumes:
       - '/sys/fs/cgroup:/sys/fs/cgroup:ro'

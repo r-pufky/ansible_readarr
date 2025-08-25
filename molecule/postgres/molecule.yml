@@ -45,11 +45,11 @@ provisioner:
         readarr_cfg_database_host: 'localhost'
         readarr_cfg_database_password: 'test'
     host_vars:
-      readarr-debian-12-postgres_user_data:
+      readarr-debian-13-postgres_user_data:
         readarr_srv_user_data_manage_enable: true
 platforms:
-  - name: 'readarr-debian-12-postgres'
-    image: 'ghcr.io/hifis-net/debian-systemd:12'
+  - name: 'readarr-debian-13-postgres'
+    image: 'ghcr.io/hifis-net/debian-systemd:13'
     systemd: 'always'
     volumes:
       - '/sys/fs/cgroup:/sys/fs/cgroup:ro'
@@ -57,8 +57,8 @@ platforms:
     pre_build_image: true
     published_ports:
       - '8787/tcp'
-  - name: 'readarr-debian-12-postgres_user_data'
-    image: 'ghcr.io/hifis-net/debian-systemd:12'
+  - name: 'readarr-debian-13-postgres_user_data'
+    image: 'ghcr.io/hifis-net/debian-systemd:13'
     systemd: 'always'
     volumes:
       - '/sys/fs/cgroup:/sys/fs/cgroup:ro'

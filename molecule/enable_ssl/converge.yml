@@ -8,7 +8,7 @@
         name: 'r_pufky.srv.readarr'
 
 - name: 'Converge | toggle SSL'
-  hosts: 'readarr-debian-12-enable_ssl-toggle'
+  hosts: 'readarr-debian-13-enable_ssl-toggle'
   gather_facts: false
   tasks:
     - name: 'Converge | toggle SSL | apply r_pufky.srv.readarr'

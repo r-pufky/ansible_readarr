@@ -29,8 +29,8 @@
 # yamllint enable rule:line-length
 
 # Last time Readarr options were validated against a default configuration.
-readarr_role_validate_date: '2025-07-01'
-readarr_role_validate_release: 'bookworm'
+readarr_role_validate_date: '2025-08-25'
+readarr_role_validate_release: 'trixie'
 readarr_role_validate_version: 'v0.4.18.2805'
 readarr_role_validate_script_release: '3.0.12'
 readarr_role_validate_script_date: '2024-04-09'
@@ -43,7 +43,7 @@ readarr_role_packages:
   - 'sqlite3'  # Readarr DB.
   - 'gnupg2'  # GPG for certificates.
   - 'ca-certificates'  # up to date certificates for certificate validation.
-  - 'libicu72'  # International Unicode support for .NET.
+  - 'libicu76'  # International Unicode support for .NET.
 
 ###############################################################################
 # Readarr GitHub Options

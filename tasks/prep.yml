@@ -57,9 +57,14 @@
 - name: 'Prep | READARR IS DEPRECATED ⚠'
   ansible.builtin.debug:
     msg: |
-      ⚠ Readarr is archived and no longer developed.
-
-      Future deployments may break without warning.
+      ╭───────────────────────────────────────────────────────────────────╮
+      │                                                                   │
+      │                      Readarr is DEPRECATED.                       │
+      │                                                                   │
+      ├───────────────────────────────────────────────────────────────────╯
+      │ Readarr is archived and no longer developed.
+      │
+      │ Future deployments may break without warning.
 
 - name: 'Prep | manage users'
   when: _readarr_srv_create_user.raw

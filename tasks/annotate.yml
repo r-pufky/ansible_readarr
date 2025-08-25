@@ -45,23 +45,6 @@
 # * https://github.com/Readarr/Readarr/releases
 # * https://github.com/Servarr/Wiki/blob/master/servarr/servarr-install-script.sh
 
-# TODO(5.26+): Remove variable renaming check on next major Readarr release.
-- name: 'Annotate | check deprecated variable usage'
-  when: >
-    hostvars[inventory_hostname] | dict2items |
-    selectattr("key", "match", "readarr_config_*") | length > 0 or
-    hostvars[inventory_hostname] | dict2items |
-    selectattr("key", "match", "readarr_service_*") | length > 0
-  ansible.builtin.fail:
-    msg: |
-      ✘ Role variables have migrated. Read defaults and update.
-
-      readarr_config_* -> readarr_cfg_*
-      readarr_service_* -> readarr_srv_*
-      readarr_* -> readarr_srv_*
-
-      DB files MUST be manually migrated if readarr_srv_config_dir changed.
-
 - name: 'Annotate | sanitize & annotate service defaults'
   ansible.builtin.set_fact:
     _readarr_srv_version: {
