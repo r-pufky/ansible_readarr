@@ -52,7 +52,7 @@ platforms:
     command: '/lib/systemd/systemd'
     pre_build_image: true
     published_ports:
-      - '8787/tcp'
+      - '8787:8787/tcp'
   - name: 'readarr-debian-13-user_data'
     image: 'ghcr.io/hifis-net/debian-systemd:13'
     systemd: 'always'
