@@ -236,8 +236,6 @@
         order=8
         )
       }}"
-    # TODO(V4): readarr_cfg_authentication_method switches from 'none' to
-    #     'eternal' on V4 codebase sync.
     _readarr_cfg_authentication_method: "{{ {} | r_pufky.data.v3(
         section='General',
         key='AuthenticationMethod',
@@ -287,7 +285,6 @@
         default=1,
         hint='int',
         deprecated=true,
-        comment='TODO(role): Next Readarr head sync will enable this.',
         order=13
         )
       }}"

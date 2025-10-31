@@ -11,17 +11,23 @@
       vars:
         test_name: 'Prepare | create cache'
 
-    - name: 'Prepare | check 0.4.18.2805'
+    - name: 'Prepare | parse test version'
+      ansible.builtin.set_fact:
+        test_version: '0.4.18.2805'
+
+    - name: '{{ "Prepare | cache " ~ test_version }}'
       ansible.builtin.include_role:
         name: 'r_pufky.lib.tests'
         tasks_from: 'cache_url.yml'
       vars:
-        test_name: 'Prepare | cache 0.4.18.2805'
-        test_dest: 'Readarr.develop.0.4.18.2805.linux-core-x64.tar.gz'
+        test_name: '{{ "Prepare | cache " ~ test_version }}'
+        test_dest: '{{
+            "Readarr.develop." ~ test_version ~ ".linux-core-x64.tar.gz"
+          }}'
         test_url: '{{
-            "https://github.com/Readarr/Readarr/releases/download/" ~
-            "v0.4.18.2805/" ~
-            "Readarr.develop.0.4.18.2805.linux-core-x64.tar.gz"
+            "https://github.com/Lidarr/Lidarr/releases/download/" ~
+            "v" ~ test_version ~ "/" ~
+            "Readarr.develop." ~ test_version ~ ".linux-core-x64.tar.gz"
           }}'
         test_mode: '0640'
 

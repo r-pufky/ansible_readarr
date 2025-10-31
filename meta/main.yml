@@ -18,5 +18,9 @@ galaxy_info:
     - 'audio'
     - 'ebook'
     - 'book'
+    - 'epub'
+    - 'mobi'
+    - 'pdf'
+    - 'arr'
 
 dependencies: []

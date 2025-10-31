@@ -2,7 +2,8 @@
 ###############################################################################
 # Readarr Install
 ###############################################################################
-# Install specified version from release.
+# Install specified version from release. Switch to released tags only when
+# project is re-opened (or migrated to another base project).
 
 - name: 'Install | packages'
   ansible.builtin.include_role:
@@ -12,7 +13,6 @@
       - '{{ readarr_role_packages }}'
     apt_package_update_cache: true
 
-# TODO(role): When officially released, switch to released tags only.
 - name: 'Install | Readarr package {{ _readarr_srv_version.raw }}'
   when: not _readarr_srv_force_config_only_enable.raw
   ansible.builtin.include_role:
