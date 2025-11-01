@@ -3,9 +3,9 @@
   hosts: 'all'
   gather_facts: false
   tasks:
-    - name: 'Converge | apply r_pufky.srv.readarr'
+    - name: 'Converge | apply r_pufky.arr.readarr'
       ansible.builtin.include_role:
-        name: 'r_pufky.srv.readarr'
+        name: 'r_pufky.arr.readarr'
 
 - name: 'Converge | toggle updates'
   hosts: 'readarr-debian-13-update_mechanisms-toggle'
@@ -13,8 +13,8 @@
   tasks:
     - name: >-
         Converge | toggle updates |
-        apply r_pufky.srv.readarr
+        apply r_pufky.arr.readarr
       ansible.builtin.include_role:
-        name: 'r_pufky.srv.readarr'
+        name: 'r_pufky.arr.readarr'
       vars:
         readarr_cfg_update_mechanism: true

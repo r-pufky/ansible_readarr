@@ -55,7 +55,7 @@ readarr_role_repo_extract_migrate_files:
   - 'readarr.db-shm'  # Readarr never closes DB's correctly.
   - 'readarr.db-wal'
   - 'cache.db'
-  - 'cache.db-shm'  # Readarr never closes DB's correctly.
+  - 'cache.db-shm'
   - 'cache.db-wal'
   - 'logs.db'
   - 'logs.db-shm'

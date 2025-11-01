@@ -44,7 +44,7 @@
             "Readarr.develop." ~ test_version ~ ".linux-core-x64.tar.gz"
           }}'
         test_url: '{{
-            "https://github.com/Lidarr/Lidarr/releases/download/" ~
+            "https://github.com/Readarr/Readarr/releases/download/" ~
             "v" ~ test_version ~ "/" ~
             "Readarr.develop." ~ test_version ~ ".linux-core-x64.tar.gz"
           }}'
